@@ -1,0 +1,227 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block content %}
+<style media="screen">
+          div.tagsinput {
+            padding: 8px;
+            border-color: #e7eaf3;
+            }
+
+          div.tagsinput span.tag {
+            background: #002388;
+            border-color: #002388;
+            color: #ffffff;
+            padding: 5px;
+            margin: 2px;
+          }
+
+          .btn.btn-light, .btn-light.avgrund-close {
+                color: #111;
+                background-color: #002388;
+                border-color: #002388;
+                color: #ffffff;
+              }
+
+                .btn.btn-light:active, .btn-light.avgrund-close:active, .btn.btn-light.active, .btn-light.active.avgrund-close, .show > .btn.btn-light.dropdown-toggle, .show > .btn-light.dropdown-toggle.avgrund-close {
+                background-color: #009efb;
+                background-image: none;
+                border-color: #009efb;
+                color: #ffffff;
+                }
+
+                .dropdown-item.active, .dropdown-item:active {
+                  color: #fff;
+                  text-decoration: none;
+                  background-color: #009efb;
+                  padding: 10px 20px;
+                }
+
+                .bootstrap-select > .dropdown-toggle.bs-placeholder, .bootstrap-select > .dropdown-toggle.bs-placeholder:active, .bootstrap-select > .dropdown-toggle.bs-placeholder:focus, .bootstrap-select > .dropdown-toggle.bs-placeholder:hover {
+                    color: white;
+                  }
+
+                  .form-label-t{
+                    margin-bottom: 0rem;margin-top: 1.5rem;
+                  }
+
+                  {% if semesterRequire %}
+                  .semester{
+                    display: none;
+                  }
+                  {% else %}
+                  .semester_{
+                    display: none;
+                  }
+                  {% endif %}
+
+</style>
+
+
+<form id="savesettings" action="{% url 'settings_update' %}" method="post">
+  {% csrf_token %}
+<!-- <div class="row grid-margin"> -->
+    <div class="col-12 top-sub-menu">
+          <div class="page-message col-lg-11" style="max-width: 87%;"></div>
+          <input  type="submit"  value="Save Changes" class="btn btn-primary top-inner-btn btn-label btn-label-center ">
+    </div>
+
+
+          <div class="row">
+            <div class="col-12 col-lg-6 grid-margin">
+                <div class="card">
+                    <div class="card-body">
+                        <p  class="card-title form-label-t">Enrolment Type</p>
+
+                            <div class="form-group">
+                              {% for radio in form.admissionType %}
+                                <div class="form-radio">
+                                    <label class="form-check-label">
+                                      {{radio}}
+                                    <i class="input-helper"></i></label>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <p  class="card-title form-label-t">Current Session</p>
+                            <div class="form-group row">
+                              <div class="col-sm-12 unique_{{field.auto_id}}">
+                                {{form.currentsession}}
+                              </div>
+                            </div>
+
+
+                            <p  class="card-title form-label-t semester">Current Semester</p>
+                            <div class="form-group row semester">
+                              <div class="col-sm-12 unique_{{field.auto_id}}">
+                                {{form.currentsemestername}}
+                              </div>
+                            </div>
+
+
+                            <p  class="card-title form-label-t semester_">Current Semester</p>
+                            <div class="form-group row semester_">
+                              <div class="col-sm-12 unique_{{field.auto_id}}">
+                                {{form.currentsemestertype}}
+                              </div>
+                            </div>
+                    </div>
+                </div>
+              </div>
+
+
+            <div class="col-12 col-lg-6 grid-margin">
+                <div class="card card-social bg-primary">
+                                    <div class="card-body">
+                                      <p class="highlight-text mb-2"> <i class="mdi mdi-message-bulleted"></i> NOTE</p>
+
+                                      <ul class="bullet-line-list">
+                                        <li>
+                                          <h5>PER SESSION ENROLMENT!</h5>
+                                          <p class="text-muted" style="text-align: justify">
+                                              The “per session” admission implies that for every set of students in the university, the semester is constant at any particular time (i.e. all students will be in 1st semester at the same time and 2nd semester at the same time).
+                                              <br>
+                                              <br>Select this option if enrolment is done once in every session in your school.
+                                          </p>
+                                        </li>
+                                        <li>
+                                          <h5>PER SEMESTER ENROLMENT! </h5>
+                                            <p class="text-muted" style="text-align: justify">
+                                            However, the “per semester” admission is more complicated as it implies that only students admitted in a common semester will be in the same semester, therefore at a given period of time there are two categories of students since there are two semesters in a session – those in 1st semester and those in 2nd semester.
+                                            <br>
+                                            <br>
+                                            Select this option if enrolment is done once in every semester in your school.
+                                          </p>
+                                        </li>
+
+                                    </ul>
+
+                                    </div>
+                                  </div>
+            </div>
+
+                        </div>
+
+              <!-- </div> -->
+            </form>
+
+
+            <div class="row grid-margin">
+
+            <div class="col-12 col-lg-5 grid-margin grid-margin-lg-0">
+            <!--notification card starts-->
+            <div class="card card-social bg-primary">
+                                <div class="card-body">
+                                  <p class="highlight-text mb-2"> <i class="mdi mdi-message-bulleted"></i> NOTE</p>
+
+                                  <ul class="bullet-line-list">
+                                    <li>
+                                      <h5>PER SESSION ENROLMENT!</h5>
+                                      <p class="text-muted" style="text-align: justify">
+                                          The “per session” admission implies that for every set of students in the university, the semester is constant at any particular time (i.e. all students will be in 1st semester at the same time and 2nd semester at the same time).
+                                          <br>
+                                          <br>Select this option if enrolment is done once in every session in your school.
+                                      </p>
+                                    </li>
+                                    <li>
+                                      <h5>PER SEMESTER ENROLMENT! </h5>
+                                        <p class="text-muted" style="text-align: justify">
+                                        However, the “per semester” admission is more complicated as it implies that only students admitted in a common semester will be in the same semester, therefore at a given period of time there are two categories of students since there are two semesters in a session – those in 1st semester and those in 2nd semester.
+                                        <br>
+                                        <br>
+                                        Select this option if enrolment is done once in every semester in your school.
+                                      </p>
+                                    </li>
+
+                                </ul>
+
+                                </div>
+                              </div>
+
+            <!--notification card ends-->
+            </div>
+            <div class="col-12 col-lg-7 grid-margin grid-margin-lg-0">
+
+            <div class="card">
+            <div class="card-body">
+              <div class="col-12">
+                <div class="col-lg-11"></div>
+                            <button id="addnewbtn" value="{% url 'new_lecturer_type' %}" onclick="loadModal('{% url 'new_lecturer_type' %}')" type="button" data-toggle="modal" data-target="#modalLoader" class="btn btn-primary top-inner-btn"><i class="mdi mdi-plus btn-label btn-label-center"></i></button>
+                          </div>
+            <h2 class="card-title">Lecturer Types</h2>
+            <div class="preview-list">
+
+            {% for type in appLecturer %}
+
+            <div class="preview-item">
+            <div class="preview-thumbnail"><div class="preview-icon bg-primary">{{type.type}}</div></div>
+            <div class="preview-item-content"><h4 class="preview-subject" style="text-transform: capitalize">{{type.designation}}</h4>
+            <p><span class="content-category">Contact Hour/Week</span>
+            <span class="pl-3 text-muted">{{type.LecMaxCosPerSem}}</span></p>
+            <p><span class="content-category">Contact Hour/Week</span>
+            <span class="pl-3 text-muted">{{type.LecMaxCosPerDay}}</span></p>
+            </div>
+            <div class="ml-auto">
+              <div class="faculty_name" style="display: none">
+                {{type.designation}}
+              </div>
+            <button class="btn btn-outline-primary" data-toggle="modal" data-target="#modalLoader"
+            onclick="loadModal('{% url 'editLecturerType' %}?id={{type.id}}')" style="padding: 5px 8px;"
+            ><i class="mdi mdi-pencil"></i></button>
+            <button style="padding: 5px 8px;"
+            name="Lecturer Type" value="{% url 'editLecturerType' %}?delete={{type.id}}" class="deleteFac btn btn-outline-danger"
+            ><i class="mdi mdi-delete"></i></button>
+            </div>
+            </div>
+            {% endfor %}
+
+            </div>
+            <!--active task list ends-->
+            </div>
+            </div>
+            </div>
+            </div>
+
+
+
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block content %}
+<style media="screen">
+.custom-alert-width {
+flex: 0 0 83.33333%;
+max-width: 87.333%;
+}
+</style>
+<!-- <div class="row grid-margin"> -->
+    <div class="col-12 top-sub-menu">
+          <div class="page-message col-lg-11 custom-alert-width"></div>
+          <button id="addnewbtn" value="{% url 'BulkDataUpload' %}" onclick="loadModal('{% url 'BulkDataUpload' %}')" type="button" data-toggle="modal" data-target="#modalLoader" class="btn btn-warning top-inner-btn"><i class="mdi mdi-database-import btn-label btn-label-center"></i></button>
+          <button id="addnewbtn" value="{% url 'new_Registration' %}" onclick="loadModal('{% url 'new_Registration' %}')" type="button" data-toggle="modal" data-target="#modalLoader" class="btn btn-primary top-inner-btn"><i class="mdi mdi-plus btn-label btn-label-center"></i></button>
+    </div>
+
+    <div class="card">
+            <div class="card-body">
+                <div class="row">
+                   <div class="col-12">
+                     <table id="order-listing" class="table" cellspacing="0" width="100%">
+                       <thead>
+                         <tr>
+                             <th>#</th>
+                             <th>Course </th>
+                             <th>Student ID</th>
+                             <th>Session</th>
+                             <th>Semester</th>
+                             <th>Department</th>
+                             <th>Level</th>
+                             <th></th>
+                         </tr>
+                       </thead>
+                       <tbody>
+                         {% for cos in reg_details %}
+                         <tr>
+                             <td class="id">{{cos.row}}</td>
+                             <td class="code">{{cos.course_code_id}}-{{cos.course_code}}</td>
+                             <td class="name">{{cos.student_id}}</td>
+                             <td class="coursehourperweek">{{ cos.session }}</td>
+                             <td class="semester">{% if cos.semesterName  %}{{cos.semesterName}}-{% endif %}{{cos.semesterType}}</td>
+                             <td class="semester">{{cos.department}}</td>
+                             <td class="semester">{{cos.level}}</td>
+                             <td>
+                               <div class="btn-group ">
+                               <button style="padding: 0.3rem 0.7rem;" type="button" class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                               <div class="dropdown-menu" style="padding: 0 !important;">
+                               <button onclick="loadModal('{% url 'edit_Registration' %}?id={{cos.id}}')" data-toggle="modal" data-target="#modalLoader" class="btn btn-outline-primary mdi mdi-pencil w-100 drop-menu-tb">Edit</button>
+                               <button name="Course" class="deleteDpt btn btn-outline-danger mdi mdi-delete w-100 drop-menu-tb" value="{% url 'edit_Registration' %}?delete={{cos.id}}">Delete</button>
+                               </div>
+                               </div>
+                             </td>
+                         </tr>
+                         {% endfor %}
+                       </tbody>
+                     </table>
+                   </div>
+                 </div>
+               </div>
+             </div>
+
+              <!-- </div> -->
+{% endblock %}

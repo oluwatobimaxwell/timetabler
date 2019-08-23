@@ -1,0 +1,228 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block content %}
+<form id="savesettings" action="{% url 'constraints_update' %}" method="post">
+  {% csrf_token %}
+<!-- <div class="row grid-margin"> -->
+    <div class="col-12 top-sub-menu">
+          <div class="page-message col-lg-11" style="max-width: 87%;"></div>
+          <input  type="submit"  value="Save Changes" class="btn btn-primary top-inner-btn btn-label btn-label-center ">
+    </div>
+
+
+          <div class="row">
+            <div class="col-12 col-lg-6 grid-margin">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">General</h2>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Lecture Starts</label>
+                                <div class="input-group clockpicker b-l-blue">
+                                  {{form.LectureStartTime}}
+                                  <span class="input-group-addon">
+                                    <i class="mdi mdi-clock"></i>
+                                  </span>
+                                </div>
+                                <small class="form-text text-muted text-success">This is the time that lectures commence for the day.</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Lecture Ends</label>
+                                <div class="input-group clockpicker b-l-blue">
+                                  {{form.LectureCloseTime}}
+                                  <span class="input-group-addon">
+                                    <i class="mdi mdi-clock"></i>
+                                  </span>
+                                </div>
+                                <small class="form-text text-muted text-success">This is the time that lectures end for the day.</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Saturday Lecturer</label>
+                                  <div class="form-check">
+                                      <label class="form-check-label">
+                                        {{form.AssignSaturdays}}
+                                        Allow classes to hold on Saturdays.
+                                      <i class="input-helper"></i></label>
+                                  </div>
+                            </div>
+
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                  {{form.AllowDailyBrkTime}}
+                                  Observe a compulsory break (free period) everyday
+                                <i class="input-helper"></i></label>
+                            </div>
+                            <hr>
+                            <div class="card-body">
+                              <div id="cover1" class="AllowDailyBrkTime over-lay" {% if form.AllowDailyBrkTime.value == True %} style="display:none" {% endif %} ></div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Break Starts</label>
+                                <div class="input-group clockpicker b-l-blue">
+                                  {{form.DailyBrkStartTime}}
+                                  <span class="input-group-addon">
+                                    <i class="mdi mdi-clock"></i>
+                                  </span>
+                                </div>
+                                <small class="form-text text-muted text-success">The break starts at this time.</small>
+                            </div>
+
+
+                            <hr>
+
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Break Duration (in minutes)</label>
+                                {{form.DailyBrkDuration}}
+                                <small class="form-text text-muted text-success">The break last for this minutes.</small>
+                            </div>
+
+                          </div>
+
+
+                    </div>
+                </div>
+                <br>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">Religion</h2>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                              {{form.MuslimWeekPrayer}}
+                              Observe a compulsory break for Jumat Prayer Time on Fridays
+                            <i class="input-helper"></i></label>
+                        </div>
+                        <hr>
+                        <div class="card-body">
+                          <div id="cover2" class="MuslimWeekPrayer over-lay" {% if form.MuslimWeekPrayer.value == True %} style="display:none" {% endif %} ></div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Prayer Starts</label>
+                            <div class="input-group clockpicker b-l-blue">
+                              {{form.MuslimPrayStart}}
+                              <span class="input-group-addon">
+                                <i class="mdi mdi-clock"></i>
+                              </span>
+                            </div>
+                            <small class="form-text text-muted text-success">The Jumat prayer commences at this time.</small>
+                        </div>
+
+
+                        <hr>
+
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Prayer Duration (in minutes)</label>
+                            {{form.MuslimPrayDuration}}
+                            <small class="form-text text-muted text-success">Jumat prayer last for this minutes.</small>
+                        </div>
+
+                      </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-12 col-lg-6 grid-margin">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">Lecturers</h2>
+                        <hr>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                              {{form.visitingLecturer}}
+                              Schedule visiting lecturers' courses first.
+                            <i class="input-helper"></i></label>
+                        </div>
+                        <hr>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                              {{form.restrictVisiting}}
+                              Restrict visiting lecturers to only their available days.
+                            <i class="input-helper"></i></label>
+                        </div>
+                        <hr>
+                          <div class="form-group">
+                              <label for="exampleInputPassword1">Maximum Number of Courses in a semester</label>
+                              {{form.LecMaxCosPerSem}}
+                              <small class="form-text text-muted text-success">Maximum number of courses a lecturer is expected to teach per semester.</small>
+                          </div>
+
+                          <div class="form-group">
+                              <label for="exampleInputPassword1">Maximum number of lecture(s) per day</label>
+                              {{form.LecMaxClassPerDay}}
+                              <small class="form-text text-muted text-success">Maximum number of classes a lecturer should have in a day. </small>
+                          </div>
+
+
+                          <div class="form-group">
+                              <label for="exampleInputPassword1">Minimum break between successive lectures (in minutes)</label>
+                              {{form.LecMinBtwClasses}}
+                              <small class="form-text text-muted text-success">Least minutes between consecutive classes if a lecturer have two classes in a day.</small>
+                          </div>
+
+
+
+
+                    </div>
+                </div>
+                <br>
+
+
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">Students</h2>
+
+                            <div class="form-group">
+                              <label for="exampleInputPassword1">Maximum number of lecture(s) per day</label>
+                              {{form.StuMaxClassPerDay}}
+                              <small class="form-text text-muted text-success">Maximum number of lecture a student should have per day.</small>
+                          </div>
+
+
+                          <div class="form-group">
+                              <label for="exampleInputPassword1">Minimum break between successive lectures (in minutes)</label>
+                              {{form.StuMinBtwClasses}}
+                              <small class="form-text text-muted text-success">Least minutes between consecutive classes if a student have two classes in a day.</small>
+                          </div>
+
+
+
+
+                    </div>
+                </div>
+                <br>
+                <div class="card card-social bg-primary">
+                                    <div class="card-body">
+                                      <p class="highlight-text mb-2"> <i class="mdi mdi-message-bulleted"></i> NOTE</p>
+
+                                      <ul class="bullet-line-list">
+                                        <li>
+                                          <h5>Type of constraints!</h5>
+                                          <p class="text-muted">
+                                              The Lecturer and Student constraints are soft constraints, while General and Religion are user-defined hard constraints.
+                                              Other hard constraints are in-built, you can see the list of them in Documentation.
+                                          </p>
+                                        </li>
+                                        <li>
+                                          <h5>How system handles constraints! </h5>
+                                          <p class="text-muted">
+                                            This means that the system complete the in-build hard constraints and the user-defined hard constraints first, before trying as much as posible to satisfy the soft constraints.
+                                          </p>
+                                        </li>
+
+                                    </ul>
+
+                                    </div>
+                                  </div>
+            </div>
+
+                        </div>
+          </div>
+
+              <!-- </div> -->
+            </form>
+
+{% endblock %}

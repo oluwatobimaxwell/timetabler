@@ -1,0 +1,177 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block content %}
+<!-- <div class="row grid-margin"> -->
+    <div class="col-12 top-sub-menu">
+          <div class="page-message col-lg-11"></div>
+          <button id="addnewbtn" value="{% url 'new_generator' %}" onclick="loadModal('{% url 'new_generator' %}')" type="button" data-toggle="modal" data-target="#modalLoader" class="btn btn-primary top-inner-btn"><i class="mdi mdi-plus btn-label btn-label-center"></i></button>
+    </div>
+    {% if table_groups %}
+    <div class="card">
+            <div class="card-body">
+                <div class="row">
+                   <div class="col-12">
+                     <table id="order-listing" class="table" cellspacing="0" width="100%">
+                       <thead>
+                         <tr>
+                             <th>#</th>
+                             <th>ID</th>
+                             <th>Generation Date</th>
+                             <th>Session</th>
+                             <th>Semester</th>
+                             <th>Tables</th>
+                             <th>Status</th>
+                             <th></th>
+                         </tr>
+                       </thead>
+                       <tbody>
+                         {% for table in table_groups %}
+                         <tr>
+                             <td class="id">{{table.row}}</td>
+                             <td class="code"> <a href="{% url 'generator' %}?viewscheduler={{table.code}}"> <button type="button" class="btn btn-outline-primary">{{table.code}} </button></a></td>
+                             <td class="code">{{table.gendate}}</td>
+                             <td class="name">{{table.session}}</td>
+                             <td class="facname">{{table.semestername}}</td>
+                             <td class="dptofficer">{{table.count}}</td>
+                             <td class="dptofficer">{{table.status}}</td>
+                             <td>
+                              <div class="btn-group ">
+                              <button style="padding: 0.3rem 0.7rem;" type="button" class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                              <div class="dropdown-menu" style="padding: 0 !important;">
+                              <button onclick="loadModal('{% url 'openscheduler' %}?id={{table.code}}')" data-toggle="modal" data-target="#modalLoader" class="btn btn-outline-primary mdi mdi-location-enter w-100 drop-menu-tb"> Open Scheduler</button>
+                              <a href="{% url 'generator' %}?viewscheduler={{table.code}}"> <button type="button" class="btn btn-outline-primary mdi mdi-select-group  w-100 drop-menu-tb"> Open All Groups</button></a>
+                              <a href="{% url 'generator' %}?viewscheduler={{table.code}}&viewstyle=1"> <button type="button" class="btn btn-outline-primary mdi mdi-table-settings  w-100 drop-menu-tb"> Open All Tables</button></a>
+                              <button name="Scheduler" class="deleteDpt btn btn-outline-danger mdi mdi-delete w-100 drop-menu-tb" value="{% url 'openscheduler' %}?delete={{table.code}}">Delete Scheduler</button>
+                              </div>
+                              </div>
+                             </td>
+                         </tr>
+                         {% endfor %}
+
+                       </tbody>
+                     </table>
+                   </div>
+                 </div>
+               </div>
+             </div>
+            {% endif %}
+              <!-- </div> -->
+
+              {% if table_groups_dpt %}
+              <div class="card">
+                      <div class="card-body">
+                          <div class="row">
+                             <div class="col-12">
+                               <table id="order-listing" class="table" cellspacing="0" width="100%">
+                                 <thead>
+                                   <tr>
+                                       <th>#</th>
+                                       <th>ID</th>
+                                       <th>Faculty</th>
+                                       <th>Department</th>
+                                       <th>Level</th>
+                                       <th>Semester</th>
+                                       <th>Scheduled</th>
+                                       <th>Status</th>
+                                       <th></th>
+                                   </tr>
+                                 </thead>
+                                 <tbody>
+                                   {% for table in table_groups_dpt %}
+                                   <tr>
+                                       <td class="id">{{table.row}}</td>
+                                       <td class="code"><button onclick="loadModal('{% url 'generator' %}?viewscheduler={{table.scheduler}}&studentgroup={{table.students}}')"
+                                         data-toggle="modal" data-target="#modalLoader"
+                                         type="button" class="btn btn-outline-primary">{{table.students}} </button></td>
+                                       <td class="code">{{table.faculty}}</td>
+                                       <td class="code">{{table.department}}</td>
+                                       <td class="name">{{table.level}}</td>
+                                       <td class="name" style="text-align: center;">{{table.semester}}</td>
+                                       <td class="dptofficer">{{table.scheduled}} out of {{table.courses}}</td>
+                                       <td class="dptofficer">{{table.status}}</td>
+                                       <td>
+                                        <div class="btn-group ">
+                                        <button style="padding: 0.3rem 0.7rem;" type="button" class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                        <div class="dropdown-menu" style="padding: 0 !important;">
+                                        <button onclick="loadModal('{% url 'openscheduler' %}?id={{table.code}}')" data-toggle="modal" data-target="#modalLoader" class="btn btn-outline-primary mdi mdi-pencil w-100 drop-menu-tb">Open Scheduler</button>
+                                        <button name="Scheduler" class="deleteDpt btn btn-outline-danger mdi mdi-delete w-100 drop-menu-tb" value="{% url 'openscheduler' %}?delete={{table.code}}">Delete Scheduler</button>
+                                        </div>
+                                        </div>
+                                       </td>
+                                   </tr>
+                                   {% endfor %}
+
+                                 </tbody>
+                               </table>
+                             </div>
+                           </div>
+                         </div>
+                       </div>
+                       {% endif %}
+
+
+
+
+           {% if table_groups_scheduler %}
+           <div class="card">
+                   <div class="card-body">
+                       <div class="row">
+                          <div class="col-12">
+                            <table id="order-listing" class="table" cellspacing="0" width="100%">
+                              <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Course</th>
+                                    <th>Students</th>
+                                    <th>Lecturer</th>
+                                    <th>Day</th>
+                                    <th>Start Time</th>
+                                    <th>End Time</th>
+                                    <th>Venue</th>
+                                    <th>Remarks</th>
+                                    <th></th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {% for table in table_groups_scheduler %}
+                                <tr>
+                                    <td class="id">{{table.row}}</td>
+                                    <td class="name">{{table.coursecode}}</td>
+                                    <td class="name">
+                                      {% for studentgtp in table.student %}
+
+                                      <button type="button" class="btn btn-outline-primary w-100" onclick="loadModal('{% url 'generator' %}?viewscheduler={{studentgtp.scheduler}}&studentgroup={{studentgtp.stdgrp}}')"
+                                      data-toggle="modal" data-target="#modalLoader" style="text-align: left">
+                                        {{studentgtp.name}}
+                                      </button>
+                                      {% endfor %}
+
+                                    </td>
+                                    <td class="name">{{table.lecturer}}</td>
+                                    <td class="name">{{table.day}}</td>
+                                    <td class="name">{{table.starttime}}</td>
+                                    <td class="name">{{table.endtime}}</td>
+                                    <td class="name">{{table.venue}}</td>
+                                    <td class="">{{table.remarks}}</td>
+                                    <td>
+                                     <div class="btn-group ">
+                                     <button style="padding: 0.3rem 0.7rem;" type="button" class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                     <div class="dropdown-menu" style="padding: 0 !important;">
+                                     <button onclick="loadModal('{% url 'manualscheduler' %}?{{table.link}}')" data-toggle="modal" data-target="#modalLoader" class="btn btn-outline-primary mdi mdi-pencil w-100 drop-menu-tb">Manual Scheduler</button>
+                                     <button name="Schedule" class="deleteDpt btn btn-outline-danger mdi mdi-delete w-100 drop-menu-tb" value="{% url 'openscheduler' %}?delete={{table.code}}">Delete Schedule</button>
+                                     </div>
+                                     </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,334 @@
+{% extends 'admin/includes/modalcontents/layout.html' %}
+{% load static %}
+
+
+{% block content %}
+
+
+<div class="modal-body" style="{{genFormCardStyle.modalbody}}">
+
+  <!-- <div class="card"> -->
+    <div class="card-body" style="{{genFormCardStyle.cardbody}}">
+        {% csrf_token %}
+        {% if visiting %}
+        <div class="form-check">
+            <label class="form-check-label">
+              {{form.visiting}}
+              Visiting Lecturer
+            <i class="input-helper"></i></label>
+          </div>
+        <hr>
+        {% endif %}
+
+
+        {% for field in form %}
+        {% if field.field.widget.input_type != 'checkbox' %}
+        {% if field.field.widget.input_type == 'file' %}
+        <div class="form-group row">
+          <label for="exampleInputEmail1" class="col-sm-4 col-form-label">{{ field.label_tag }}</label>
+          <div class="col-sm-8 unique_{{field.auto_id}}" style="float: right;">
+            <input id="{{field.auto_id}}" name="{{field.name}}" type="file" class="dropify" data-default-file="{% if field.value %}/media/{{field.value}}{% endif %}" accept="image/*"/>
+          </div>
+          </div>
+        {% else %}
+
+        {% if coursesForm and semesterRequire and field.auto_id == 'id_semester' %}
+
+        {% elif registrationForm and semesterRequire and field.auto_id == 'id_semesterName' %}
+
+        {% elif generationForm and field.auto_id != 'id_session' %}
+
+        {%  if field.auto_id == 'id_code' %}
+
+        {% if generationForm_1 %}
+        <div class="card card-social bg-primary" style="margin: -20px -35px 0 -35px;">
+                            <div class="card-body">
+                              <p class="highlight-text mb-2" style="font-size: 2.75rem"> <i class="mdi mdi-settings"></i> SCHEDULER ENGINE</p>
+                              <div class="generatingBox">
+                                <table class="table text-white">
+                                <tbody>
+                                  <tr>
+                                    <td class="text-white">ID</td>
+                                    <td class="text-white">{{tableData.id}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td class="text-white">DATE CREATED</td>
+                                    <td class="text-white">{{tableData.gendate}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td class="text-white">SEMESTER</td>
+                                    <td class="text-white">{{tableData.semester}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td class="text-white">TOTAL TABLES</td>
+                                    <td class="text-white">{{tableData.totalgen}}</td>
+                                  </tr>
+                                </tbody>
+                                </table>
+                                <div id="generatorStatus" class="card bg-primary">
+                                  <div class="displayloader" style="display: none; width: 50%;margin: auto;">
+                                    <img src="{% static 'images/generating.gif'%}" style="width: 100%" alt="">
+                                    <p>Generating timetables, please wait...</p>
+                                  </div>
+                                  <div  class="card-body" style="padding: 0;border: 1px solid #fff;margin-top: 15px;">
+                                    <a href="{% url 'generator' %}?viewscheduler={{tableData.id}}" ><button type="button" class="btn btn-danger col-md-6" style="margin: 0;height: 100px; float:left">View Tables</button></a>
+
+                                    <input onclick="event.preventDefault(); generatetableconfirm()" type="submit" class="btn btn-primary col-md-6" value="{{modal.button}}" style="margin: 0;height: 100px; float:right">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <script type="text/javascript">
+                          function generatetableconfirm(){
+                            swal({
+                            title: 'Generate Tables',
+                            html: 'Generating tables will create timetables if they are not created before and update existing ones. Are you sure, you want to continue?',
+                            type: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#002388',
+                            cancelButtonColor: '#ea2c54',
+                            confirmButtonText: 'Yes continue...'
+                          }).then(function () {
+                            $('#generatorStatus div:eq(0)').css('display', '')
+                            $('#generatorStatus div:eq(1)').css('display', 'none')
+                            $('#forms-timetabler').submit()
+                          })
+                          }
+
+                          </script>
+        {% else %}
+        <div class="card card-social bg-primary" style="margin: -20px -35px 0 -35px;">
+                            <div class="card-body">
+                              <p class="highlight-text mb-2" style="font-size: 2.75rem"> <i class="mdi mdi-chart-timeline"></i> AUTO-GENERATOR</p>
+                              <p>Comlete the following steps to generate timetable.</p>
+                              <hr>
+                              <ul class="bullet-line-list">
+                                <li>
+                                  <h5>Create Scheduler</h5>
+                                  <p class="text-muted" >
+                                      Select session and semester below and click on "Create Scheduler" button to create scheduler.
+                                  </p>
+                                </li>
+                                <li>
+                                  <h5>Generate timetables</h5>
+                                  <p class="text-muted" >
+                                      As soon as scheduler is successfully created, go to the table and click on "Open Scheduler". 
+                                      This opens the Scheduler information, and you can then click the "Generate Timetables" button to generate all the timetables associated with the scheduler.
+
+                                  </p>
+                                </li>
+                                <li>
+                                  <h5>View Generated Tables</h5>
+                                  <p class="text-muted" style="text-align: justify">
+                                      Click the "View Tables" button to view all student groups generated timetables.
+                                  </p>
+                                </li>
+                            </ul>
+
+                            </div>
+                          </div>
+
+        {% endif %}
+
+        <div class="form-group row"  style="display: {{genFormDisplay}}">
+          <div class="col-sm-8 unique_{{field.auto_id}}" style="float: right;">
+            {{ field }}
+          </div>
+        </div>
+          {% elif field.auto_id != 'id_code' %}
+
+              {% if semesterRequire != True and field.auto_id == 'id_semestertype' %}
+              <div class="form-group row" style="display: {{genFormDisplay}}">
+                <label for="exampleInputEmail1" class="col-sm-4 col-form-label">{{ field.label_tag }}</label>
+                <div class="col-sm-8 unique_{{field.auto_id}}" style="float: right;">
+                  {{ field }}
+                </div>
+              </div>
+              {% elif semesterRequire and field.auto_id == 'id_semestername'  %}
+              <div class="form-group row"  style="display: {{genFormDisplay}}">
+                <label for="exampleInputEmail1" class="col-sm-4 col-form-label">{{ field.label_tag }}</label>
+                <div class="col-sm-8 unique_{{field.auto_id}}" style="float: right;">
+                  {{ field }}
+                </div>
+              </div>
+              {% endif %}
+
+          {% endif %}
+        {% else %}
+        {% if lecturerForm and field.field.label == 'remove' %}
+
+        {% else %}
+
+        <div class="form-group row"  style="display: {{genFormDisplay}}">
+          <label for="exampleInputEmail1" class="col-sm-4 col-form-label">{{ field.label_tag }}</label>
+          <div class="col-sm-8 unique_{{field.auto_id}}" style="float: right;">
+            {{ field }}
+          </div>
+        </div>
+        {% endif %}
+        {% endif %}
+
+        {% endif %}
+            {% if venueForm %}
+              {% if field.auto_id == 'id_type' %}
+              <hr>
+              <h5 class="card-title">Venue Reservations</h5>
+              <hr>
+              {% endif %}
+            {% endif %}
+
+          {% endif %}
+
+
+
+
+        {% endfor %}
+
+
+
+        {% if venueForm %}
+
+
+            <script type="text/javascript">
+            $(document).ready(function(){
+
+                $('.multipleClickInput').tagsInput({
+                        'width': '100%',
+                        'height': '75%',
+                        'interactive': true,
+                        'defaultText': 'Add More',
+                        'removeWithBackspace': true,
+                        'minChars': 0,
+                        'maxChars': 512,
+                        'placeholderColor': '#666666'
+                    });
+
+                    $('#id_reservedLevel_tag').on('input', function() {
+                        var levels = [{% for level in levels %}'{{level}}',{% endfor %}]
+                        var input = $(this).val()
+                          if (levels.includes(input)) {
+                              $('.page-message').html('')
+                              if (levels.includes(input)) {
+                                $(this).val(input)
+                              }else {
+                                $(this).val('')
+                                $('.page-message').html('<div class="alert alert-danger" role="alert">'
+                                                    +'<strong>Invalid Input:</strong> valid inputs are '+levels+'!</div>')
+                              }
+                          }
+                    })
+
+            })
+            </script>
+        {% endif %}
+
+
+
+        {% if lecturerForm %}
+        <style media="screen">
+          .form-check, .form-radio{
+                margin-top: -10px;
+                margin-left: 35%;
+          }
+        </style>
+        <label for="exampleInputEmail1" class="col-sm-4 col-form-label" style="padding-left: 0;">Available Days:</label>
+        <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Day</th>
+                  <th>From</th>
+                  <th>To</th>
+                </tr>
+              </thead>
+            <tbody class="lecturer_avail">
+              <tr>
+                <td><div class="form-check">
+                    <label class="form-check-label">
+                      {{form.mon}}
+                    <i class="input-helper"></i></label>
+                </div></td>
+                <td>Monday</td>
+                <td><div class="input-group clockpicker b-l-blue"  data-align="top" data-placement="left">{{form.monFrom}}<span class="input-group-addon"><i class="mdi mdi-clock"></i></span></div></td>
+                <td><div class="input-group clockpicker b-l-blue"  data-align="top" data-placement="right">{{form.monTo}}<span class="input-group-addon"><i class="mdi mdi-clock"></i></span></div></td>
+              </tr>
+              <tr>
+                <td><div class="form-check">
+                    <label class="form-check-label">
+                      {{form.tue}}
+                    <i class="input-helper"></i></label>
+                </div></td>
+                <td>Tuesday</td>
+                <td><div class="input-group clockpicker b-l-blue"  data-align="top" data-placement="left">{{form.tueFrom}}<span class="input-group-addon"><i class="mdi mdi-clock"></i></span></div></td>
+                <td><div class="input-group clockpicker b-l-blue"  data-align="top" data-placement="right">{{form.tueTo}}<span class="input-group-addon"><i class="mdi mdi-clock"></i></span></div></td>
+              </tr>
+              <tr>
+                <td><div class="form-check">
+                    <label class="form-check-label">
+                      {{form.wed}}
+                    <i class="input-helper"></i></label>
+                </div></td>
+                <td>Wednesday</td>
+                <td><div class="input-group clockpicker b-l-blue"  data-align="top" data-placement="left">{{form.wedFrom}}<span class="input-group-addon"><i class="mdi mdi-clock"></i></span></div></td>
+                <td><div class="input-group clockpicker b-l-blue"  data-align="top" data-placement="right">{{form.wedTo}}<span class="input-group-addon"><i class="mdi mdi-clock"></i></span></div></td>
+              </tr>
+              <tr>
+                <td><div class="form-check">
+                    <label class="form-check-label">
+                      {{form.thu}}
+                    <i class="input-helper"></i></label>
+                </div></td>
+                <td>Thursday</td>
+                <td><div class="input-group clockpicker b-l-blue"  data-align="top" data-placement="left">{{form.thuFrom}}<span class="input-group-addon"><i class="mdi mdi-clock"></i></span></div></td>
+                <td><div class="input-group clockpicker b-l-blue"  data-align="top" data-placement="right">{{form.thuTo}}<span class="input-group-addon"><i class="mdi mdi-clock"></i></span></div></td>
+              </tr>
+              <tr>
+                <td><div class="form-check">
+                    <label class="form-check-label">
+                      {{form.fri}}
+                    <i class="input-helper"></i></label>
+                </div></td>
+                <td>Friday</td>
+                <td><div class="input-group clockpicker b-l-blue"  data-align="top" data-placement="left">{{form.friFrom}}<span class="input-group-addon"><i class="mdi mdi-clock"></i></span></div></td>
+                <td><div class="input-group clockpicker b-l-blue"  data-align="top" data-placement="right">{{form.friTo}}<span class="input-group-addon"><i class="mdi mdi-clock"></i></span></div></td>
+              </tr>
+              {% if Saturday %}
+              <tr>
+                <td>
+                  <div class="form-check">
+                      <label class="form-check-label">
+                        {{form.sat}}
+                      <i class="input-helper"></i></label>
+                  </div>
+                </td>
+                <td>Saturday</td>
+                <td><div class="input-group clockpicker b-l-blue"  data-align="top" data-placement="left">{{form.satFrom}}<span class="input-group-addon"><i class="mdi mdi-clock"></i></span></div></td>
+                <td><div class="input-group clockpicker b-l-blue"  data-align="top" data-placement="right">{{form.satTo}}<span class="input-group-addon"><i class="mdi mdi-clock"></i></span></div></td>
+              </tr>
+              {% endif %}
+            </tbody>
+            </table>
+
+        </div>
+        <script src="{% static 'bower_components/clockpicker/dist/jquery-clockpicker.min.js'%}"></script>
+        <script src="{% static 'js/formpickers.js'%}"></script>
+        <script type="text/javascript">
+          $('input[type="checkbox"]'). click(function(){
+            var tr = $(this).closest('tr');
+            if($(this).prop("checked") == true){
+              tr.find('.p-input').prop("readonly", "")
+            }else {
+              tr.find('.p-input').prop("readonly", "true")
+            }
+          })
+        </script>
+          {% endif %}
+
+
+    <!-- </div> -->
+  </div>
+</div>
+{% endblock %}

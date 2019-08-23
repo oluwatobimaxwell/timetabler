@@ -1,0 +1,34 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block content %}
+<div class="row grid-margin">
+  <div class="col-12 top-sub-menu">
+    <div class="page-message col-lg-11"></div>
+                <button id="addnewbtn" value="{% url 'new_faculty' %}" onclick="loadModal('{% url 'new_faculty' %}')" type="button" data-toggle="modal" data-target="#modalLoader" class="btn btn-primary top-inner-btn"><i class="mdi mdi-plus btn-label btn-label-center"></i></button>
+              </div>
+    {% for faculty in faculty_list %}
+    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-8 mb-4">
+      <div class="card grid-margin grid-margin-md-0">
+        <div class="btn-group " style="position: absolute; ">
+        <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+        <div class="dropdown-menu">
+        <button onclick="loadModal('{% url 'edit_faculty' %}?id={{faculty.id}}')" data-toggle="modal" data-target="#modalLoader"  class="dropdown-item btn btn-primary"><i class="mdi mdi-pencil"></i>Edit</button>
+        <button name="Faculty" value="{% url 'edit_faculty' %}?delete={{faculty.id}}" class="deleteFac dropdown-item btn btn-danger" ><i class="mdi mdi-delete"></i>Delete</button>
+        </div>
+        </div>
+        <img class="card-img-top" src="{% if faculty.image != '' %}/media/{{faculty.image}}{% else %} /static/images/thumbnails/no-image-bg.png {% endif %}" alt="Card image cap">
+        <div class="card-body faculty-p-style">
+          <h2 class="faculty_name card-title mb-3">{{faculty.name}}</h2>
+          <hr>
+          <p> <strong>ID: </strong> <span>{{faculty.code}}</span> </p>
+          <p> <strong>Officer: </strong> <span>{{faculty.officer}}</span> </p>
+          <p> <strong>Total Department: </strong> <span>{{faculty.totaldpt}}</span> </p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+
+              </div>
+
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block content %}
+
+<!-- <div class="row grid-margin"> -->
+    <div class="col-12 top-sub-menu">
+          <div class="page-message col-lg-11"></div>
+          <button id="addnewbtn" value="{% url 'new_courses' %}" onclick="loadModal('{% url 'new_courses' %}')" type="button" data-toggle="modal" data-target="#modalLoader" class="btn btn-primary top-inner-btn"><i class="mdi mdi-plus btn-label btn-label-center"></i></button>
+    </div>
+
+    <div class="card">
+            <div class="card-body">
+                <div class="row">
+                   <div class="col-12">
+                     <table id="order-listing" class="table" cellspacing="0" width="100%">
+                       <thead>
+                         <tr>
+                             <th>#</th>
+                             <th>Code</th>
+                             <th>Course Title</th>
+                             <th>Hours/Week</th>
+                             <th>Semester</th>
+                             <th>Department(s)</th>
+                             <th>Lecturer(s)</th>
+                             <th></th>
+                         </tr>
+                       </thead>
+                       <tbody>
+                         {% for cos in courses_list %}
+                         <tr>
+                             <td class="id">{{cos.row}}</td>
+                             <td class="code">{{cos.code}}</td>
+                             <td class="name">{{cos.name}}</td>
+                             <td class="coursehourperweek">{{ cos.coursehourperweek }}</td>
+                             <td class="semester">{{cos.semester}}</td>
+                             <td class="semester">{{cos.departments}}</td>
+                             <td class="semester">{% if cos.lecturers %}{{cos.lecturers}}{% else %}<button onclick="loadModal('{% url 'edit_courses' %}?id={{cos.id}}')" data-toggle="modal" data-target="#modalLoader" type="button" class="btn btn-danger">Assign Lecturer</button>{% endif %}</td>
+                             <td>
+                               <div class="btn-group ">
+                               <button style="padding: 0.3rem 0.7rem;" type="button" class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                               <div class="dropdown-menu" style="padding: 0 !important;">
+                               <button onclick="loadModal('{% url 'edit_courses' %}?id={{cos.id}}')" data-toggle="modal" data-target="#modalLoader" class="btn btn-outline-primary mdi mdi-pencil w-100 drop-menu-tb">Edit</button>
+                               <button name="Course" class="deleteDpt btn btn-outline-danger mdi mdi-delete w-100 drop-menu-tb" value="{% url 'edit_courses' %}?delete={{cos.id}}">Delete</button>
+                               </div>
+                               </div>
+                             </td>
+                         </tr>
+                         {% endfor %}
+                       </tbody>
+                     </table>
+                   </div>
+                 </div>
+               </div>
+             </div>
+
+              <!-- </div> -->
+{% endblock %}

@@ -1,0 +1,137 @@
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+    <ul class="nav">
+        <!--main pages start-->
+        <li class="nav-item nav-category">
+            <span class="nav-link">General</span>
+        </li>
+
+        <!-- <li class="nav-item">
+            <a class="nav-link" href="{% url 'dashboard' %}">
+                <i class="mdi mdi-view-dashboard"></i>
+                <span class="menu-title">Dashboard </span>
+            </a>
+        </li> -->
+<!--
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#uiBasicSubmenu" aria-expanded="false" aria-controls="collapseExample">
+                <i class="mdi mdi-arrange-send-to-back"></i>
+                <span class="menu-title">Manage Schedule</span>
+                <i class="mdi mdi-chevron-down"></i>
+            </a>
+            <div class="collapse" id="uiBasicSubmenu">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="pages/ui-features/accordions.html">Accordions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a>
+                    </li>
+                    </li>
+                </ul>
+            </div>
+        </li> -->
+
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'generator' %}">
+                <i class="mdi mdi-animation"></i>
+                <span class="menu-title">Home </span>
+            </a>
+        </li>
+    <!--sample pages end-->
+        <!--ui features start-->
+        <li class="nav-item nav-category">
+            <span class="nav-link">Manage Data</span>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'faculty' %}">
+              <i class="mdi mdi-domain"></i>
+                <span class="menu-title">Faculties </span>
+            </a>
+        </li>
+
+
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'department' %}">
+              <i class="mdi mdi-school"></i>
+              <span class="menu-title">Departments</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'venue' %}">
+              <i class="mdi mdi-fireplace-off"></i>
+              <span class="menu-title">Venues</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'lecturers' %}">
+              <i class="mdi mdi-teach"></i>
+              <span class="menu-title">Lecturers</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'courses' %}">
+              <i class="mdi mdi-text-subject"></i>
+              <span class="menu-title">Courses</span>
+            </a>
+        </li>
+
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'registrations' %}">
+              <i class="mdi mdi-table-row-plus-before"></i>
+              <span class="menu-title">Enrolments</span>
+              <!-- <span class="menu-title">Registrations</span> -->
+            </a>
+        </li>
+
+
+        <!-- ui features end-->
+
+        <li class="nav-item nav-category">
+            <span class="nav-link">Settings</span>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'constraints' %}">
+              <i class="mdi mdi-chart-bar-stacked"></i>
+              <span class="menu-title">Constraints</span>
+            </a>
+        </li>
+
+
+        <!-- <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#uiPopupSubmenu" aria-expanded="false" aria-controls="collapseExample">
+                <i class="mdi mdi-account-group"></i>
+                <span class="menu-title">Manage Users</span>
+                <i class="mdi mdi-chevron-down"></i>
+            </a>
+            <div class="collapse" id="uiPopupSubmenu">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="pages/ui-features/alerts.html">Alerts</a>
+                    </li>
+                </ul>
+            </div>
+        </li> -->
+
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'appsettings' %}">
+                <i class="mdi mdi-settings-outline"></i>
+                <span class="menu-title">Other Settings </span>
+            </a>
+        </li>
+
+        <li class="nav-item" style="border-bottom: none;">
+          <a class="nav-link btn btn-primary btn-block enter-btn text-center btnlogout" href="/logout">
+              <i class="mdi mdi-power text-white"></i>
+              <span class="menu-title text-white">Logout</span>
+            </a>
+        </li>
+
+    </ul>
+
+</nav>

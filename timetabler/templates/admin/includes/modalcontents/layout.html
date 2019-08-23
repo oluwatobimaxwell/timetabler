@@ -1,0 +1,144 @@
+{% load static %}
+ {% autoescape off %}
+<style media="screen">
+          div.tagsinput {
+            padding: 8px;
+            border-color: #e7eaf3;
+            }
+
+          div.tagsinput span.tag {
+            background: #002388;
+            border-color: #002388;
+            color: #ffffff;
+            padding: 5px;
+            margin: 2px;
+          }
+
+
+
+</style>
+    <div class="modal-content" style="{{modal.style}}" >
+      <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"> <i class="mdi mdi-{{modal.modalicon}}"></i> {{modal.title}}</h5>
+
+<div class="" style="margin: auto; float:right">
+  <button id="btnmax" type="button" onclick="openFullscreen(); $('#btnmin').css('display',''); $('#btnmax').css('display','none')" title="Maximize" class="btn btn-outline-primary mdi mdi-arrow-expand" style="padding: 2px 5px; float: right; margin-right: 10px"></button>
+  <button id="btnmin" type="button" onclick="closeFullscreen(); $('#btnmin').css('display','none'); $('#btnmax').css('display','');" title="Restore Down" class="btn btn-outline-primary mdi mdi-arrow-collapse" style="padding: 2px 5px; float: right; margin-right: 10px; display: none"></button>
+</div>
+          <button style="margin-left: 14%;" type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+
+      <div class="page-message">
+
+      </div>
+      <form id="forms-timetabler" class="forms-sample-timetabler">
+
+      {% block content %}
+      {% endblock %}
+
+      {% if generationForm %}
+      {% if generationForm_1 %}
+
+      <div class="modal-footer" style="padding: 0;">
+          <button type="button" class="btn btn-danger col-md-12" data-dismiss="modal" style="margin: 0;height: 50px;">Close</button>
+        </div>
+      {% else %}
+      <div class="modal-footer" style="padding: 0;">
+          <button type="button" class="btn btn-danger col-md-6" data-dismiss="modal" style="margin: 0;height: 50px;">Close</button>
+
+          <input type="submit" class="btn btn-primary col-md-6" value="{{modal.button}}" style="margin: 0;height: 50px;">
+
+        </div>
+        {% endif %}
+      {% else %}
+
+      {% if viewgrouptabledata %}
+      <div class="modal-footer" style="padding: 0;">
+        <button type="button" class="btn btn-danger col-md-6" data-dismiss="modal" style="margin: 0;height: 50px;">Close</button>
+        <button type="button" class="btn btn-primary col-md-6" data-dismiss="modal" style="margin: 0;height: 50px;">Print</button>
+        </div>
+
+        {% else %}
+
+      <div class="modal-footer" style="padding: 0;">
+          <button type="button" class="btn btn-danger col-md-3" data-dismiss="modal" style="margin: 0;height: 50px;">Close</button>
+          <input type="submit" class="btn btn-primary col-md-3" value="Save" style="margin: 0;height: 50px;">
+          <input type="button" class="submit-form-btn btn btn-success col-md-6" value="Save and Add Another" style="margin: 0;height: 50px;">
+        </div>
+
+        {% endif %}
+      {% endif %}
+    </form>
+    </div>
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+
+      $('select').selectpicker();
+      var clicktype = false
+      $('.submit-form-btn').on('click', function(){
+        clicktype = true
+        $('#forms-timetabler').submit()
+      })
+
+      $('#forms-timetabler').submit(function(event){
+          event.preventDefault()
+          var form_data = new FormData(this);
+              $.ajax({
+                       type         : "POST",
+                       url          : "{{submiturl}}",
+                       data         : form_data,
+                       dataType     : "text",
+                       contentType  : false,
+                       processData  : false,
+                       success: function(response){
+                         if (clicktype) {
+                           clicktype = false
+                           loadModal($('#addnewbtn').val())
+                         }
+                          $('.page-message').html(response)
+
+                          if ($('#generatorStatus')) {
+
+                            $('#generatorStatus div:eq(0)').css('display', 'none')
+                            $('#generatorStatus div:eq(1)').css('display', '')
+
+                          }
+
+                       }})
+      })
+    });
+
+
+
+    $('.populate-drop').on('change', function(){
+
+          var valueSelected = new String($(this).val())
+          var source = $(this).attr('data-source')
+          var target = $(this).attr('data-link')
+          var singular = $(this).attr('singular')
+          var dataSend = {'source':source, 'value':valueSelected, 'target':target, 'type':singular}
+
+          $.ajax({
+                 type: 'GET',
+                 url: '{% url 'dataRouter' %}',
+                 data: dataSend,
+                 dataType: "text",
+                 cache: true,
+                 success: function(response){
+                   $('.unique_id_'+target).html(response)
+                   $('select').selectpicker();
+                 }
+               })
+
+    })
+
+    $(".modal-dialog").removeClass("modal-lg");
+    $(".modal-dialog").addClass("{{modal.size}}");
+
+    </script>
+    <script src="{% static 'js/dropify.js'%}"></script>
+    <script src="{% static 'node_modules/dropify/dist/js/dropify.min.js'%}"></script>
+ {% endautoescape %}

@@ -1,0 +1,47 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Time Table Management</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="{% static 'node_modules/mdi/css/materialdesignicons.css' %}">
+  <link rel="stylesheet" href="{% static 'node_modules/perfect-scrollbar/dist/css/perfect-scrollbar.min.css' %}">
+  <!-- endinject -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" />
+  <style media="screen">
+  .form-control {
+    //border-radius: 2px;
+    background-color: #fff0 !important;
+    border: none !important;
+    border-bottom: 1px solid #002388 !important;
+  }
+  </style>
+</head>
+
+<body>
+  {% block content %}
+  {% endblock %}
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <script src="{% static 'node_modules/jquery/dist/jquery.min.js' %}"></script>
+  <script src="{% static 'node_modules/popper.js/dist/umd/popper.min.js' %}"></script>
+  <script src="{% static 'node_modules/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'node_modules/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js' %}"></script>
+  <!-- endinject -->
+  <!-- inject:js -->
+  <script src="{% static 'js/off-canvas.js' %}"></script>
+  <script src="{% static 'js/hoverable-collapse.js' %}"></script>
+  <script src="{% static 'js/misc.js' %}"></script>
+  <script src="{% static 'custom/main.js' %}"></script>
+  <!-- endinject -->
+</body>
+
+</html>

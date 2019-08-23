@@ -1,0 +1,136 @@
+{% extends 'admin/includes/modalcontents/layout.html' %}
+{% load static %}
+
+
+{% block content %}
+        <div class="card-body" style="padding-left: 0;padding-right: 0; padding-top: 15px;">
+          {% if backtablestudents != 'ALL' %}
+          <button style="margin-top: -5px;" type="button" class="btn btn-danger mdi mdi-arrow-left col-12"
+          onclick="loadModal('{% url 'generator' %}?viewscheduler={{backtablescheduler}}&studentgroup={{backtablestudents}}')"
+          > Back</button>
+          {% endif %}
+          <div class="card card-social bg-primary">
+
+
+              <div class="row grid-margin" style="margin-bottom: 0;">
+                <div class="col-12 col-lg-7 grid-margin grid-margin-lg-0" style="border-right: 1px solid #00000026;margin-top: 10px;margin-bottom: 10px;">
+                    <div class="card-body">
+                      <p class="highlight-text mb-2">{{coursedata.code}}</p>
+                      <p class="social-category">
+                        {{coursedata.title}}
+                      </p>
+                      <p class="card-social-text">
+                        Lecturer: {{coursedata.lecturername}} ({{coursedata.lecturercode}})
+                      </p>
+                      <p class="card-social-text" style="margin-bottom: 0;">
+                        Remark: {{coursedata.remarks}}
+                      </p>
+                    </div>
+                    </div>
+
+                    <div class="col-12 col-lg-5">
+                        <div class="card-body">
+                          <p class="social-category">
+                            Student Group
+                          </p>
+                          <hr>
+                            {% for group in  coursedata.studentgroup %}
+                            <p class="card-social-text">{{group}}</p>
+                            {% endfor %}
+                        </div>
+                      </div>
+                        </div>
+
+
+                  </div>
+              <div class="row grid-margin" style="margin-bottom: -20px;">
+                <div class="col-12 col-lg-7 grid-margin grid-margin-lg-0" style="padding-right: 0;">
+
+                      <div class="card p-1" style="min-height: 360px;">
+                                  <div class="card-body" style="padding-top: 16px;">
+                                    <h2 class="card-title" style="margin-bottom: 14px;">
+                                      Available Schedule Matches {{matchesSugestion}}
+                                    </h2>
+                                    <hr style="margin: 0;">
+                                    <ul class="profile-list h-100" style="padding: 0;">
+                                          <li class="profile-list-item" style="padding: 5px 0;">
+                                              <a href="#">
+                                                  <div class="user">
+                                                      <p class="u-name">Tuesday</p>
+                                                      <p class="u-designation">D7 [08:30 - 09:30]</p>
+                                                  </div>
+                                              </a>
+                                          </li>
+                                          <!-- list person -->
+                                          <li class="profile-list-item" style="padding: 5px 0;">
+                                              <a href="#">
+                                                  <div class="user">
+                                                      <p class="u-name">Tuesday</p>
+                                                      <p class="u-designation">D7 [14:30 - 16:30]</p>
+                                                  </div>
+                                              </a>
+                                          </li>
+                                      </ul>
+                                  </div>
+                              </div>
+                    </div>
+
+                    <div class="col-12 col-lg-5">
+                        <div class="card-body">
+                          <h2 class="social-category">
+                            Manual Scheduler
+                          </h2>
+                          <hr>
+                          {% csrf_token %}
+
+                        <div class="form-group" style="display: none">
+                            {{manualschedulerForm.code}}
+                            {{manualschedulerForm.groupid}}
+                        </div>
+
+                        <div class="form-group row">
+                                  <label for="exampleInputPassword1" class="col-sm-4 col-form-label">Day</label>
+                                  <div class="col-sm-8" style="float: right;">
+                                    {{manualschedulerForm.lectureday}}
+                                  </div>
+                              </div>
+                              <div class="form-group row">
+                                    <label for="exampleInputPassword1" class="col-sm-4 col-form-label">Start Time</label>
+                                    <div class="col-sm-8 input-group clockpicker b-l-blue" data-align="top" data-placement="left" style="float: right;">
+                                      {{manualschedulerForm.starttime}}
+                                      <span class="input-group-addon">
+                                    <i class="mdi mdi-clock"></i>
+                                  </span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                  <label for="exampleInputPassword1" class="col-sm-4 col-form-label">End Time</label>
+                                  <div class="col-sm-8 input-group clockpicker b-l-blue" data-align="top" data-placement="left" style="float: right;">
+                                    {{manualschedulerForm.endtime}}
+                                    <span class="input-group-addon">
+                                    <i class="mdi mdi-clock"></i>
+                                  </span>
+                                  </div>
+                              </div>
+
+                              <div class="form-group row">
+                                  <label for="exampleInputPassword1" class="col-sm-4 col-form-label">Venue</label>
+                                  <div class="col-sm-8"  style="float: right;">
+                                      {{manualschedulerForm.venue}}
+                                  </div>
+                              </div>
+
+                                <button type="submit" class="btn btn-primary col-12">Save Schedule</button>
+                        </div>
+                      </div>
+                    </div>
+
+
+        </div>
+        <script src="{% static 'bower_components/clockpicker/dist/jquery-clockpicker.min.js'%}"></script>
+        <script src="{% static 'js/formpickers.js'%}"></script>
+        <script src="{% static 'node_modules/list.js/dist/list.min.js'%}"></script>
+        <script src="{% static 'js/listify.js'%}"></script>
+
+{% endblock %}

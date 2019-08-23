@@ -1,0 +1,65 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block content %}
+<!-- <div class="row grid-margin"> -->
+  <div class="col-12 top-sub-menu">
+      <div class="page-message col-lg-11">
+
+                </div>
+
+                <button id="addnewbtn" value="{% url 'new_Lecturer' %}" onclick="loadModal('{% url 'new_Lecturer' %}')" type="button" data-toggle="modal" data-target="#modalLoader" class="btn btn-primary top-inner-btn"><i class="mdi mdi-plus btn-label btn-label-center"></i></button>
+              </div>
+    <div class="card">
+            <div class="card-body">
+    <div class="row">
+                   <div class="col-12">
+                     <table id="order-listing" class="table" cellspacing="0" width="100%">
+                       <thead>
+                         <tr>
+                             <th>#</th>
+                             <th>ID</th>
+                             <th>Name</th>
+                             <th>Priority</th>
+                             <th>Faculty</th>
+                             <th>Department</th>
+                             <th>Courses</th>
+                             <th></th>
+                         </tr>
+                       </thead>
+                       <tbody>
+                         {% for lecturer in lecturers %}
+                         <tr>
+                             <td class="id">{{lecturer.row}}</td>
+                             <td class="code">{{lecturer.code}}</td>
+                             <td class="name">{{lecturer.name}}</td>
+                             <td class="priority">
+                               <div class="progress progress-slim" style="height: 1.413rem;border: 1px solid #002388;">
+                               <div class="progress-bar bg-primary" role="progressbar" style="width: {% widthratio lecturer.priorityNumber 1 "20" %}%" aria-valuenow="{{lecturer.priorityNumber_id}}" aria-valuemin="0" aria-valuemax="{{maximumpriority}}">{{lecturer.priorityNumber}}/{{maximumpriority}}</div>
+                             </div>
+                            </td>
+                             <td class="dptofficer">{{lecturer.facultyLec}}</td>
+                             <td class="dptofficer">{{lecturer.departmentLec}}</td>
+                             <td class="dptofficer" style="text-align: center;"><button type="button" class="btn btn-primary" style="font-weight: bolder;padding: 2px 6px;">{{lecturer.cousesTaken}}</button></td>
+                             <td>
+                               <div class="btn-group ">
+                               <button style="padding: 0.3rem 0.7rem;" type="button" class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                               <div class="dropdown-menu" style="padding: 0 !important;">
+                               <button onclick="loadModal('{% url 'edit_Lecturer' %}?id={{lecturer.id}}')" data-toggle="modal" data-target="#modalLoader" class="btn btn-outline-primary mdi mdi-pencil w-100 drop-menu-tb">Edit</button>
+                               <button name="Lecturer" class="deleteDpt btn btn-outline-danger mdi mdi-delete w-100 drop-menu-tb" value="{% url 'edit_Lecturer' %}?delete={{lecturer.id}}">Delete</button>
+                               </div>
+                               </div>
+                             </td>
+                         </tr>
+                         {% endfor %}
+
+                       </tbody>
+                     </table>
+                   </div>
+                 </div>
+               </div>
+             </div>
+
+              <!-- </div> -->
+
+{% endblock %}

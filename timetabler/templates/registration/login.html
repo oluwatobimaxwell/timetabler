@@ -1,0 +1,78 @@
+{% extends 'registration/layout.html' %}
+
+{% block content %}
+<div class="container-scroller">
+  <div class="container-fluid page-body-wrapper">
+    <div class="row">
+      <div class="content-wrapper full-page-wrapper auth-pages login-2">
+        <div class="card col-lg-4" style="float:left;background: #ffffffd4;">
+          <div class="card-body px-5 py-5">
+            <div class="text-center navbar-brand-wrapper">
+            <a class="navbar-brand brand-logo text-primary"  style="font-size: 1.85rem;  font-family: 'source-sans-pro', sans-serif" href="#">Time<strong>TABLER</strong>
+            <i class="mdi mdi-timer-sand" ></i>
+            </a>
+            </div>
+            <br>
+            <br>
+
+            <h3 class="card-title text-left mb-3">Login</h3>
+            <div id="message"></div>
+            <form method="post">
+              {% csrf_token %}
+              {{form.as_p}}
+
+              <div class="form-group d-flex align-items-center justify-content-between">
+                <div class="form-check">
+                    <label class="form-check-label">
+                      <input type="checkbox" class="form-check-input">
+                      Remember me
+                    </label>
+                </div>
+                <a href="/dashboard" class="forgot-pass">Forgot password</a>
+              </div>
+              <div class="text-center">
+                <button onclick="" type="submit" class="btn btn-primary btn-block enter-btn">Login</button>
+              </div>
+              <div class="clearfix">
+                <button class="btn btn-facebook float-left">
+                    <i class="mdi mdi-facebook"></i> Facebook
+                </button>
+                <button class="btn btn-google float-right">
+                    <i class="mdi mdi-google-plus"></i> Google plus
+                </button>
+              </div>
+              <p class="sign-up">Don't have an Account? <a href="#">Sign Up</a></p>
+            </form>
+          </div>
+        </div>
+
+        <div class="col-lg-8" style="height: 100%;width: 100%;float: right; background:#002388d6 !important">
+          <div class="card" style="background: #fff0; font-weight: lighter; padding: 8.5%" >
+            <div class="card-body">
+              <h4 class="card-title text-white">
+                        <i class="mdi mdi-school"></i>
+                        ACCORDING TO THE LITERATURE
+                      </h4>
+                      <hr style="border-color: #ffffff2b">
+              <p class="font-italic text-white mt-3 text-justify">Many of the university timetable systems in practice have focused more on the management aspect and less on the generating aspect of the timetabling problem. Although lately significant efforts have been made to bridge this gap, however the problem still persists in many universities, especially here in Nigeria. Systems that attempted to provide an automatic generation module are designed to work for schools that provide admissions on per session basis (which is common in Nigeria) rather than their counterparts that provide admission on per semester basis (as practice in Baze University). The “per session” admission implies that for every set of students in the university, the semester is constant at any particular time (i.e. all students will be in 1st semester at the same time and 2nd semester at the same time). However, the “per semester” admission is more complicated as it implies that only students admitted in a common semester will be in the same semester, therefore at a given period of time there are two categories of students since there are two semesters in a session – those in 1st semester and those in 2nd semester. The implication is that resources in the university are concurrently shared by these two categories of student, which makes the timetable more complicated than the “per session” based admission schools.</p>
+
+              <p class="font-italic text-white mt-3 text-justify">
+                It is clear in the literature; there has been no successful system that integrates all these activities. In an attempt to solve this problem it is proposed that an information system that encompasses all these activities be developed, i.e. a system that provides modules for timetabling management and timetable generation for both “per session” and “per semester” based admission schools.
+              </p>
+
+              <p class="font-italic text-white mt-3 text-justify">
+                Today I present to you - TimeTABLER; the perfect solution to the problem, and its novelty is in its ability to be able to work for both “per session” and “per semester” based admission schools seamlessly.
+              </p>
+              <hr style="border-color: #ffffff2b">
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- content-wrapper ends -->
+    </div>
+    <!-- row ends -->
+  </div>
+  <!-- page-body-wrapper ends -->
+</div>
+{% endblock %}

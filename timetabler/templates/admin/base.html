@@ -1,0 +1,123 @@
+{% load static %}
+{% autoescape off %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>TimeTABLER :: {{pagedata.pagetitle}}</title>
+  <!-- plugins:css -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+
+  <link rel="stylesheet" href="{% static 'node_modules/mdi/css/materialdesignicons.css' %} ">
+  <link rel="stylesheet" href="{% static 'node_modules/perfect-scrollbar/dist/css/perfect-scrollbar.min.css' %} ">
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <link rel="stylesheet" href="{% static 'node_modules/jquery-tags-input/dist/jquery.tagsinput.min.css' %} " />
+  <link rel="stylesheet" href="{% static 'node_modules/font-awesome/css/font-awesome.min.css' %} " />
+  <link rel="stylesheet" href="{% static 'node_modules/sweetalert2/dist/sweetalert2.min.css' %}" />
+  <link rel="stylesheet" href="//cdn.materialdesignicons.com/3.6.95/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="{% static 'node_modules/dropify/dist/css/dropify.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css' %}" />
+  <link rel="stylesheet" href="{% static 'node_modules/select2/dist/css/select2.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'bower_components/switchery/switchery.css' %}" />
+  <link rel="stylesheet" href="{% static 'node_modules/select2-bootstrap-theme/dist/select2-bootstrap.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'bower_components/clockpicker/dist/jquery-clockpicker.min.css' %} " />
+  <link rel="stylesheet" href="{% static 'node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css' %} " />
+
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" />
+<!-- <link rel="shortcut icon" href="{% static 'images/favicon-2.png" /> -->
+
+</head>
+
+<body class="navbar-primary">
+  <div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+    {% include "admin/includes/topbar.html" %}
+
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <div class="row row-offcanvas row-offcanvas-right">
+        <!-- partial:partials/_sidebar.html -->
+        {% include "admin/includes/sidebar.html" %}
+
+        <!-- partial -->
+        <div class="content-wrapper">
+          <h1 class="page-title"> <i class="mdi mdi-{{ pagedata.pageicon }}"></i> {{ pagedata.pagetitle }}</h1>
+
+          {% block content %}
+          {% endblock %}
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+
+        {% include "admin/includes/footer.html" %}
+
+        <!-- partial -->
+      </div>
+      <!-- row-offcanvas ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+
+            <div class="modal fade" id="modalLoader" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"  style="background: #02091ed6 !important;">
+                        <div id="modalLoader_inner" class="modal-dialog" role="document">
+
+                        </div>
+                    </div>
+
+  <script src="{% static 'node_modules/jquery/dist/jquery.min.js'%}"></script>
+  <script src="{% static 'node_modules/popper.js/dist/umd/popper.min.js'%}"></script>
+  <script src="{% static 'node_modules/bootstrap/dist/js/bootstrap.min.js'%}"></script>
+  <script src="{% static 'node_modules/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js'%}"></script>
+  <script src="{% static 'node_modules/jquery-tags-input/dist/jquery.tagsinput.min.js'%}"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page-->
+  <script src="{% static 'js/dropify.js'%}"></script>
+  <script src="{% static 'node_modules/dropify/dist/js/dropify.min.js'%}"></script>
+  <script src="{% static 'node_modules/jqvmap/dist/jquery.vmap.min.js'%}"></script>
+  <script src="{% static 'node_modules/jqvmap/dist/maps/jquery.vmap.world.js'%}"></script>
+  <!-- End plugin js for this page-->
+  <script src="{% static 'node_modules/sweetalert2/dist/sweetalert2.min.js'%}"></script>
+  <script src="{% static 'node_modules/chart.js/dist/Chart.min.js'%}"></script>
+  <script src="{% static 'node_modules/datatables.net/js/jquery.dataTables.js'%}"></script>
+  <script src="{% static 'node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js'%}"></script>
+  <script src="{% static 'node_modules/select2/dist/js/select2.min.js'%}"></script>
+  <!-- inject:js -->
+  <script src="{% static 'js/off-canvas.js'%}"></script>
+  <script src="{% static 'js/hoverable-collapse.js'%}"></script>
+  <script src="{% static 'js/misc.js'%}"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <script src="{% static 'js/maps.js'%}"></script>
+  <script src="{% static 'js/chart.js'%}"></script>
+
+  <script src="{% static 'custom/main.js'%}"></script>
+  <script src="{% static 'js/data-table.js'%}"></script>
+  <script src="{% static 'js/alerts.js'%}"></script>
+  <script src="{% static 'js/form-addons.js'%}"></script>
+  <script src="{% static 'node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js'%}"></script>
+  <script src="{% static 'bower_components/clockpicker/dist/jquery-clockpicker.min.js'%}"></script>
+  <script src="{% static 'js/formpickers.js'%}"></script>
+    <!-- End custom js for this page-->
+    <script src="{% static 'bower_components/switchery/dist/switchery.min.js'%}"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+$('select').selectpicker();
+})
+</script>
+
+</body>
+
+</html>
+{% endautoescape %}
