@@ -778,8 +778,9 @@ class ManualScheduler():
                 studentAvailability[studentx] = suggestion
 
             for lecturersx in lecturersy:
-                # lecturerFree = getLecturerFreePeriods(schedulerTable, getLecturerAvail([lecturersx]), lecturersx, constraints('LecMaxClassPerDay'), constraints('LecMinBtwClasses'))
-                lecturerFree = getLecturerFreePeriods(schedulerTable, getStudentTime(), lecturersx, constraints('LecMaxClassPerDay'), constraints('LecMinBtwClasses'))
+                lecturerFree = getLecturerFreePeriods(schedulerTable, getLecturerAvail([lecturersx]), lecturersx, constraints('LecMaxClassPerDay'), constraints('LecMinBtwClasses'))
+                # thisLecturerTime =
+                # lecturerFree = getLecturerFreePeriods(schedulerTable, getStudentTime(), lecturersx, constraints('LecMaxClassPerDay'), constraints('LecMinBtwClasses'))
                 print(lecturerFree)
                 suggestion = []
                 for freespace in lecturerFree:
@@ -788,12 +789,8 @@ class ManualScheduler():
                             suggestion.append(freespace)
                 lectuerAvailability[lecturersx] = suggestion
 
-            # if venueid != None:
+            
 
-
-
-            print(studentAvailability)
-            print(lectuerAvailability)
 
             return venueid.code
         except TablesGenerated.DoesNotExist:
