@@ -148,7 +148,7 @@ def index(request):
             rownumber = 1
             for table in table_groups:
                 table['row'] = rownumber
-                table['count'] = 30
+                table['count'] = 20
                 table['status'] = '<i class="mdi mdi-alert-circle text-warning"></i>'
                 table['semestertype'] = Functions.getSemesterName(table['semestertype'])
                 group_list.append(table)
